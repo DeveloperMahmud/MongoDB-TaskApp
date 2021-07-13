@@ -2,8 +2,15 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const taskSchema = new mongoose.Schema({
-    description: String,
-    isCompleted: Boolean,
+    description: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    isCompleted: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const Task = mongoose.model('Task', taskSchema);

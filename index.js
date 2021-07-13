@@ -14,15 +14,23 @@ const Task = require('./model/task.js');
 
 async function db(){
     try{
-        const user = new User({
-            name: ' asddas LSD ',
-            age: 191,
-            email: 'lsd1@gmail.com',
-            password:'abc12D'
+        // const user = new User({
+        //     name: ' asddas LSD ',
+        //     age: 191,
+        //     email: 'lsd1@gmail.com',
+        //     password:'abc12D'
 
+        // });
+        // await user.save()
+        // console.log(user);
+
+        const task = new Task({
+            description: '  test task              ',
+            isCompleted: true
         });
-        await user.save();
-        console.log(user);
+        await task.save()
+        console.log(task);
+
     }catch(e){
         console.log(colors.red.underline.bold (e.message));
     }
