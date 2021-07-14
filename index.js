@@ -32,11 +32,21 @@ app.post('/user', async(req, res) => {
     try{
         const user = new User(req.body);
         await user.save();
-        return res.status(201).json({ success: true , user : task }); 
+        return res.status(201).json({ success: true , user : user }); 
     }catch(e){
         return res.status(400).json({success: false, message: e.message});
     }
 
+});
+
+app.get('/task', async(req, res) => {
+    const tasks = await Task.find();
+    return res.json({success:true, tasks : tasks});
+});
+
+app.get('/user', async(req, res) => {
+    const users = await User.find();
+    return res.json({success:true, users : users});
 })
 
 const port = process.env.PORT || 4040;
