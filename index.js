@@ -44,4 +44,21 @@ async function db(){
 
 db();
 
+/*
+    REST API DESIGN FOR:-
+    ====================
+    
+    /task POST 
+    /task GET 
+    /task/:id GET 
+    /task/:id PATCH 
+    /task/:id DELETE 
 
+    =================
+
+    /user POST 
+    /user GET 
+    /user/:id GET 
+    /user/:id PATCH 
+    /user/:id DELETE 
+*/
