@@ -19,11 +19,20 @@ const Task = require('./model/task.js');
 
 app.post('/task', async(req, res) => {
     try{
-        console.log(req.body)
         const task = new Task(req.body);
-        console.log(task);
         await task.save();
         return res.status(201).json({ success: true , task : task }); 
+    }catch(e){
+        return res.status(400).json({success: false, message: e.message});
+    }
+
+});
+
+app.post('/user', async(req, res) => {
+    try{
+        const user = new User(req.body);
+        await user.save();
+        return res.status(201).json({ success: true , user : task }); 
     }catch(e){
         return res.status(400).json({success: false, message: e.message});
     }
@@ -33,31 +42,31 @@ app.post('/task', async(req, res) => {
 const port = process.env.PORT || 4040;
 app.listen(port, () => console.log(`Server is Running at port : ${port}`));
 
-async function db(){
-    try{
-        // const user = new User({
-        //     name: ' asddas LSD ',
-        //     age: 191,
-        //     email: 'lsd1@gmail.com',
-        //     password:'abc12D'
+// async function db(){
+//     try{
+//         // const user = new User({
+//         //     name: ' asddas LSD ',
+//         //     age: 191,
+//         //     email: 'lsd1@gmail.com',
+//         //     password:'abc12D'
 
-        // });
-        // await user.save()
-        // console.log(user);
+//         // });
+//         // await user.save()
+//         // console.log(user);
 
-        const task = new Task({
-            description: '  test task              ', 
-            isCompleted: true
-        });
-        await task.save()
-        console.log(task);
+//         const task = new Task({
+//             description: '  test task              ', 
+//             isCompleted: true
+//         });
+//         await task.save()
+//         console.log(task);
 
-    }catch(e){
-        console.log(colors.red.underline.bold (e.message));
-    }
-}
+//     }catch(e){
+//         console.log(colors.red.underline.bold (e.message));
+//     }
+// }
 
-db();
+// db();
 
 /*
     REST API DESIGN FOR:-
