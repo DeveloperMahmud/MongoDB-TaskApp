@@ -4,6 +4,8 @@ const express = require('express');
 
 const app = express();
 
+app.use(express.json());
+
 mongoose.connect('mongodb://localhost:27017/taskAppDB', {
     useNewUrlParser: true, 
     useUnifiedTopology: true,
@@ -14,6 +16,19 @@ mongoose.connect('mongodb://localhost:27017/taskAppDB', {
 
 const User = require('./model/user.js');
 const Task = require('./model/task.js');
+
+app.post('/task', async(req, res) => {
+    try{
+        console.log(req.body)
+        const task = new Task(req.body);
+        console.log(task);
+        await task.save();
+        return res.status(201).json({ success: true , task : task }); 
+    }catch(e){
+        return res.status(400).json({success: false, message: e.message});
+    }
+
+})
 
 const port = process.env.PORT || 4040;
 app.listen(port, () => console.log(`Server is Running at port : ${port}`));
@@ -47,7 +62,7 @@ db();
 /*
     REST API DESIGN FOR:-
     ====================
-    
+
     /task POST 
     /task GET 
     /task/:id GET 
