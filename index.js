@@ -47,7 +47,7 @@ app.get('/task', async(req, res) => {
 app.get('/user', async(req, res) => {
     const users = await User.find();
     return res.json({success:true, users : users});
-})
+});
 
 const port = process.env.PORT || 4040;
 app.listen(port, () => console.log(`Server is Running at port : ${port}`));
