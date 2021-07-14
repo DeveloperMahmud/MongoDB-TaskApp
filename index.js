@@ -1,16 +1,22 @@
 const mongoose = require('mongoose');
 const colors = require('colors');
-mongoose.connect('mongodb://localhost:27017/taskAppDB', 
-{
+const express = require('express');
+
+const app = express();
+
+mongoose.connect('mongodb://localhost:27017/taskAppDB', {
     useNewUrlParser: true, 
     useUnifiedTopology: true,
     useCreateIndex: true
 })
-    .then(()=> console.log('Database is Connected'))
-    .catch((err)=> console.error(err));
-    ;
+.then(()=> console.log('Database is Connected'))
+.catch((err)=> console.error(err));
+
 const User = require('./model/user.js');
 const Task = require('./model/task.js');
+
+const port = process.env.PORT || 4040;
+app.listen(port, () => console.log(`Server is Running at port : ${port}`));
 
 async function db(){
     try{
@@ -25,7 +31,7 @@ async function db(){
         // console.log(user);
 
         const task = new Task({
-            description: '  test task              ',
+            description: '  test task              ', 
             isCompleted: true
         });
         await task.save()
