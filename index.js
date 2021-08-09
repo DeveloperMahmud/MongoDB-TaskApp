@@ -51,14 +51,71 @@ app.get('/user', async(req, res) => {
 
 app.get('/user/:id', async(req, res) => {
     const user = await User.findById(req.params.id);
+    if(!user){
+        return res.status(404).json({
+            success:false,
+            message:'User Not Found',
+        });
+    }
     return res.json({success:true, user});
 });
 
 app.get('/task/:id', async(req, res) => {
     const task = await Task.findById(req.params.id);
+    if(!task){
+        return res.status(404).json({
+            success:false,
+            message:'Task Not Found',
+        });
+    }
     return res.json({success:true, task});
 });
 
+app.patch('/user/:id', async(req, res) => {
+    try{
+        const user = await User.findByIdAndUpdate(req.params.id, req.body,{
+            new:true,
+            runValidators: true,
+        });
+    
+        if(!user){
+            return res.status(404).json({
+                success:false,
+                message:'User Not Found',
+            });
+        }
+        return res.json({success:true, user});
+
+    }catch(e){ 
+        return res.status(404).json({
+            success:false,
+            message: e.message,
+        });
+    };        
+});
+
+app.patch('/task/:id', async(req, res) => {
+    try{
+        const task = await Task.findByIdAndUpdate(req.params.id, req.body,{
+            new:true,
+            runValidators: true,
+        });
+    
+        if(!task){
+            return res.status(404).json({
+                success:false,
+                message:'Task Not Found',
+            });
+        }
+        return res.json({success:true, task});
+
+    }catch(e){ 
+        return res.status(404).json({
+            success:false,
+            message: e.message,
+        });
+    };        
+});
 const port = process.env.PORT || 4040;
 app.listen(port, () => console.log(`Server is Running at port : ${port}`));
 
