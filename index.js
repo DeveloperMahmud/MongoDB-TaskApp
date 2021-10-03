@@ -13,6 +13,13 @@ mongoose.connect('mongodb://localhost:27017/taskAppDB', {
 .then(()=> console.log('Database is Connected'))
 .catch((err)=> console.error(err));
 
+const userRoutes = require('./routes/user.js');
+const taskRoutes = require('./routes/task.js');
+
+app.use(userRoutes)
+app.use(taskRoutes)
+
+
 const port = process.env.PORT || 4040;
 app.listen(port, () => console.log(`Server is Running at port : ${port}`));
 
